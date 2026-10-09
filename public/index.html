@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sertikom Mahasiswa</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <div id="authScreen" class="auth-screen">
+    <div class="auth-box">
+      <div class="brand">
+        <span class="brand-badge">S</span>
+        <h1>Sertikom</h1>
+      </div>
+
+      <div class="auth-toggle">
+        <button class="mode-btn active" data-mode="login">Login</button>
+        <button class="mode-btn" data-mode="register">Buat Akun</button>
+      </div>
+
+      <div id="loginPanel" class="auth-panel active-panel">
+        <h2>Masuk ke Dashboard</h2>
+        <form id="loginForm">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" type="email" placeholder="masukkan email" required>
+
+          <label for="loginPassword">Password</label>
+          <input id="loginPassword" type="password" placeholder="masukkan password" required>
+
+          <button class="submit-btn" type="submit">Login</button>
+        </form>
+
+        <div class="demo-accounts">
+          <p>Demo akun:</p>
+          <small>Admin: admin@sertikom.com / admin123</small><br>
+          <small>User: user@sertikom.com / user123</small>
+        </div>
+      </div>
+
+      <div id="registerPanel" class="auth-panel">
+        <h2>Buat Akun Sertikom</h2>
+        <form id="registerForm">
+          <label for="registerName">Nama Lengkap</label>
+          <input id="registerName" type="text" placeholder="Nama lengkap" required>
+
+          <label for="registerEmail">Email</label>
+          <input id="registerEmail" type="email" placeholder="email@domain.com" required>
+
+          <label for="registerPassword">Password</label>
+          <input id="registerPassword" type="password" placeholder="minimal 6 karakter" required>
+
+          <button class="submit-btn" type="submit">Buat Akun</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="appScreen" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand sidebar-brand">
+        <span class="brand-badge">S</span>
+        <h2>Sertikom</h2>
+      </div>
+
+      <nav>
+        <button class="nav-btn active" data-target="dashboard">📊 Dashboard</button>
+        <button class="nav-btn" data-target="upload">📄 Unggah File</button>
+        <button class="nav-btn" data-target="schedule">📅 Jadwal</button>
+        <button class="nav-btn" data-target="notifications">🔔 Notifikasi</button>
+        <button class="nav-btn admin-only" data-target="users">👥 Pengguna</button>
+        <button class="nav-btn admin-only" data-target="verify">✅ Verifikasi</button>
+      </nav>
+
+      <div class="profile-box">
+        <div class="avatar" id="userAvatar">A</div>
+        <div>
+          <p id="userName">User</p>
+          <span id="userRole">User</span>
+        </div>
+      </div>
+
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <h3 id="pageTitle">Dashboard</h3>
+        <div class="notification-pill">
+          <span>🔔</span>
+          <span id="notifCount">0</span>
+        </div>
+      </header>
+
+      <!-- Dashboard Panel -->
+      <section id="dashboard" class="panel active-panel">
+        <div class="stats">
+          <div class="card stat-card">
+            <span>Total Mahasiswa</span>
+            <strong id="totalMahasiswa">0</strong>
+          </div>
+          <div class="card stat-card">
+            <span>File Terkirim</span>
+            <strong id="totalFiles">0</strong>
+          </div>
+          <div class="card stat-card">
+            <span>Jadwal Aktif</span>
+            <strong id="totalSchedule">0</strong>
+          </div>
+          <div class="card stat-card">
+            <span>Notifikasi</span>
+            <strong id="totalNotif">0</strong>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h4>Progress Sertifikasi</h4>
+            <div class="progress-list">
+              <div class="progress-item">
+                <span>Dokumen</span>
+                <div class="bar"><i style="width: 88%"></i></div>
+                <small>88%</small>
+              </div>
+              <div class="progress-item">
+                <span>Ujian</span>
+                <div class="bar"><i style="width: 64%"></i></div>
+                <small>64%</small>
+              </div>
+              <div class="progress-item">
+                <span>Verifikasi</span>
+                <div class="bar"><i style="width: 52%"></i></div>
+                <small>52%</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Aktivitas Terbaru</h4>
+            <ul id="recentActivity" class="activity-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upload Panel -->
+      <section id="upload" class="panel">
+        <div class="card">
+          <h4>📄 Unggah Dokumen Sertifikasi</h4>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-row">
+              <label>Judul Dokumen</label>
+              <input id="docTitle" type="text" placeholder="Contoh: Sertifikat Pelatihan AI" required>
+            </div>
+
+            <div class="form-row">
+              <label>Jenis File</label>
+              <select id="docType">
+                <option value="Sertifikat">Sertifikat</option>
+                <option value="KTP">KTP</option>
+                <option value="Transkrip">Transkrip</option>
+                <option value="Laporan">Laporan</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label>Pilih File</label>
+              <input id="fileInput" type="file" required>
+            </div>
+
+            <button type="submit">Unggah File</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h4>Daftar File Anda</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Jenis</th>
+                  <th>Status</th>
+                  <th>Tanggal Upload</th>
+                </tr>
+              </thead>
+              <tbody id="fileTableBody">
+                <tr><td colspan="4" style="text-align: center; color: #999;">Belum ada file</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedule Panel -->
+      <section id="schedule" class="panel">
+        <div class="card">
+          <h4>📅 Tambah Jadwal</h4>
+          <form id="scheduleForm">
+            <div class="form-row">
+              <label>Judul Kegiatan</label>
+              <input id="scheduleTitle" type="text" placeholder="Contoh: Ujian Sertifikasi" required>
+            </div>
+
+            <div class="form-row">
+              <label>Tanggal</label>
+              <input id="scheduleDate" type="date" required>
+            </div>
+
+            <div class="form-row">
+              <label>Waktu</label>
+              <input id="scheduleTime" type="time" required>
+            </div>
+
+            <div class="form-row">
+              <label>Deskripsi (Opsional)</label>
+              <textarea id="scheduleDesc" placeholder="Deskripsi kegiatan"></textarea>
+            </div>
+
+            <button type="submit">Simpan Jadwal</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h4>Jadwal Terbaru</h4>
+          <ul id="scheduleList" class="schedule-list">
+            <li style="color: #999;">Belum ada jadwal</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Notifications Panel -->
+      <section id="notifications" class="panel">
+        <div class="card">
+          <h4>🔔 Notifikasi Anda</h4>
+          <ul id="notificationList" class="notification-list">
+            <li style="color: #999;">Belum ada notifikasi</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Users Panel (Admin Only) -->
+      <section id="users" class="panel admin-only-panel">
+        <div class="card">
+          <h4>👥 Daftar Pengguna</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="userTableBody">
+                <tr><td colspan="4" style="text-align: center; color: #999;">Tidak ada pengguna</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Verify Panel (Admin Only) -->
+      <section id="verify" class="panel admin-only-panel">
+        <div class="card">
+          <h4>✅ Verifikasi Dokumen</h4>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mahasiswa</th>
+                  <th>Judul</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="verifyTableBody">
+                <tr><td colspan="4" style="text-align: center; color: #999;">Belum ada dokumen untuk diverifikasi</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal Verifikasi -->
+  <div id="verifyModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Verifikasi Dokumen</h3>
+        <button class="close-btn" onclick="closeVerifyModal()">&times;</button>
+      </div>
+      <form id="verifyForm">
+        <input type="hidden" id="verifyDocId">
+        <div class="form-row">
+          <label>Status</label>
+          <select id="verifyStatus" required>
+            <option value="">-- Pilih Status --</option>
+            <option value="Terverifikasi">✅ Terverifikasi</option>
+            <option value="Ditolak">❌ Ditolak</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Catatan Admin</label>
+          <textarea id="verifyNotes" placeholder="Masukkan catatan atau alasan penolakan"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" style="flex: 1;">Simpan Verifikasi</button>
+          <button type="button" onclick="closeVerifyModal()" style="flex: 1; background: #ccc; color: #333;">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

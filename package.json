@@ -1,0 +1,20 @@
+{
+  "name": "sertikom-mahasiswa",
+  "version": "2.0.0",
+  "description": "Aplikasi web Sertikom Mahasiswa dengan database MySQL, verifikasi dokumen admin, notifikasi, jadwal, dan role based access",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["sertikom", "mahasiswa", "express", "mysql"],
+  "author": "zr15-cyber",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.31.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.1"
+  }
+}
